@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Lista de Produtos";
+    
+    // Recuperando as listas da ViewBag e fazendo o devido "cast" (conversão)
+    var listaProdutos = ViewBag.Produtos as List<string>;
+    var listaPrecos = ViewBag.Precos as List<double>;
+}
+
+<h2>Lista de Produtos</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Nome</th>
+            <th>Preço</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (listaProdutos != null && listaPrecos != null)
+        {
+            // Passo 5: Use @for para criar uma tabela com #, Nome e Preço
+            for (int i = 0; i < listaProdutos.Count; i++)
+            {
+                // Passo 6: Use @if para colorir de verde os produtos com preço < R$ 100
+                // Definimos uma variável de estilo baseada no preço
+                string estiloVerde = listaPrecos[i] < 100.00 ? "background-color: #d4edda; color: #155724;" : "";
+
+                <tr style="@estiloVerde">
+                    <td>@(i + 1)</td>
+                    <td>@listaProdutos[i]</td>
+                    <td>R$ @listaPrecos[i].ToString("N2")</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<div class="alert alert-info mt-3">
+    <strong>Total: @(listaProdutos?.Count ?? 0) produtos</strong>
+</div>

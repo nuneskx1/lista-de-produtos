@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "catalogoprodutos/1.0.0": {
+        "runtime": {
+          "catalogoprodutos.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "catalogoprodutos/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
