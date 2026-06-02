@@ -1,0 +1,73 @@
+@{
+    ViewData["Title"] = "Boletim Escolar";
+
+  
+    var listaDisciplinas = ViewBag.Disciplinas as List<string>;
+    var listaNotas = ViewBag.Notas as List<double>;
+
+    double somaNotas = 0;
+    int totalDisciplinas = listaDisciplinas?.Count ?? 0;
+}
+
+<h2>Boletim Escolar</h2>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Disciplina</th>
+            <th>Nota</th>
+            <th>Status</th>
+            <th>Classificação</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (listaDisciplinas != null && listaNotas != null)
+        {
+            for (int i = 0; i < totalDisciplinas; i++)
+            {
+                double notaAtual = listaNotas[i];
+                somaNotas += notaAtual; 
+
+                <tr>
+                    <td>@listaDisciplinas[i]</td>
+                    <td>@notaAtual.ToString("N1")</td>
+                    
+                    <td>
+                        @if (notaAtual >= 6.0) 
+                        {
+                            <span class="badge bg-success text-white p-2">Aprovado</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger text-white p-2">Reprovado</span>
+                        }
+                    </td>
+
+                    <td>
+                        @{
+                            
+                            string classificacao = notaAtual switch
+                            {
+                                >= 9.0 => "A",
+                                >= 7.0 => "B",
+                                >= 5.0 => "C",
+                                _      => "D" 
+                            };
+                        }
+                        <strong>@classificacao</strong>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@{
+    double mediaGeral = totalDisciplinas > 0 ? somaNotas / totalDisciplinas : 0;
+}
+
+<div class="card mt-3">
+    <div class="card-body bg-light">
+        <h4>Média Geral: <span class="text-primary">@mediaGeral.ToString("N2")</span></h4>
+    </div>
+</div>
